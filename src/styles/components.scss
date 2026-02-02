@@ -1,0 +1,639 @@
+@use "variables" as *;
+
+/* App Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $bg-panel;
+  border-radius: 0; /* Removed rounding */
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 6px solid #111; /* Outer Frame Border */
+  box-sizing: border-box;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-md $spacing-lg;
+  background: rgba($bg-panel, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid $border-light;
+  z-index: 10;
+  flex-shrink: 0;
+
+  .app-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .title-accent {
+      width: 6px;
+      height: 16px;
+      background: $primary;
+      border-radius: 99px;
+      box-shadow: 0 4px 6px -1px rgba($primary, 0.5);
+    }
+
+    .pro-badge {
+      font-size: 10px;
+      font-weight: 400;
+      padding: 2px 6px;
+      background: $bg-card;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      color: $text-secondary;
+    }
+  }
+}
+
+/* Buttons */
+.icon-btn-ghost {
+  background: transparent;
+  border: none;
+  color: #a1a1aa; /* zinc-400 - Lighter for visibility */
+  padding: 8px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background: $bg-hover;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: scale(0.92);
+    background: darken($bg-hover, 5%);
+  }
+}
+
+.btn-manage {
+  font-size: 11px;
+  font-weight: 500;
+  color: #60a5fa; /* blue-400 */
+  background: rgba(59, 130, 246, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &:hover {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd; /* blue-300 */
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: scale(0.95);
+    background: rgba(59, 130, 246, 0.15);
+  }
+
+  svg {
+    opacity: 0.9;
+  }
+}
+
+/* Main Content */
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-lg;
+  padding-bottom: 96px; /* Space for footer */
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  
+  /* Prevent sections from collapsing or overlapping */
+  & > section, & > div {
+    flex-shrink: 0;
+    width: 100%;
+  }
+}
+
+/* Section 1: Tools Grid Container */
+.section-tools-grid {
+  margin-bottom: 20px; /* Explicit vertical spacing */
+}
+
+/* Override ToolGrid internal styling */
+.tool-grid {
+  display: flex; 
+  flex-wrap: wrap;
+  /* Removed negative margin to prevent clipping/overlap issues in UXP */
+  /* margin: -6px; */ 
+  border: none;
+  /* padding: 4px; */
+  width: 100%;
+  margin-left: -6px; /* Only compensate left alignment if needed, or justify-content */
+  width: calc(100% + 12px); /* Still allow width expansion but handle carefully */
+  /* Safer approach: No negative margins, just margin on items */
+  margin: 0;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+
+  .tool-btn {
+    width: 44px; 
+    height: 44px;
+    flex: 0 0 44px; 
+    margin: 0 8px 8px 0; /* Reduced Spacing */
+    position: relative; /* For remove button positioning */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: $bg-card;
+    color: $text-muted;
+    border: 1px solid transparent;
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  
+    &:hover {
+      background: lighten($bg-card, 5%);
+      transform: translateY(-1px);
+    }
+  
+    &:active {
+      transform: scale(0.92);
+      background: darken($bg-card, 2%);
+    }
+  
+    &.active {
+      background: $primary;
+      color: #fff;
+      box-shadow: 0 10px 15px -3px rgba($primary, 0.3);
+  
+      svg { 
+        transform: none; 
+        fill: #ffffff !important; 
+      }
+      
+      &:active {
+         transform: scale(0.95);
+         box-shadow: 0 4px 6px -1px rgba($primary, 0.4);
+      }
+    }
+  
+    svg { 
+      width: 24px; 
+      height: 24px;
+      fill: currentColor;
+      transition: fill 0.2s;
+    }
+
+    /* Remove Button Styling (Shared Logic) */
+    .remove-btn {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.2s;
+      cursor: pointer;
+      z-index: 20;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      
+      &:hover {
+        background: #ef4444; /* red-500 */
+        transform: scale(1.1);
+      }
+  
+      svg {
+        display: block;
+        margin: auto;
+        width: 10px;
+        height: 10px;
+        fill: #fff !important;
+      }
+    }
+  
+    /* Show remove button on hover */
+    &:hover .remove-btn {
+      opacity: 1;
+    }
+
+    /* Add Button Modifier */
+    &.add-btn {
+      border: 1px dashed $border-color;
+      background: transparent;
+      color: $text-muted;
+
+      &:hover {
+        border-color: $primary;
+        color: $primary;
+        background: rgba($primary, 0.05);
+      }
+      
+      svg { fill: currentColor !important; }
+    }
+  }
+
+  /* Popover Menu for Adding Tools */
+  .add-tool-popover {
+    & > div {
+       transition: background 0.2s;
+       &:hover { background: #52525b !important; /* zinc-600 */ }
+    }
+  }
+
+
+/* Section 2: Presets */
+.section-presets {
+  margin-bottom: 20px; /* Reverted spacing as overlap is fixed */
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap; /* Allow wrapping on very small screens */
+    gap: 8px; /* Fallback gap if supported, otherwise margins */
+
+    h2 {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: $text-secondary;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+}
+
+/* Override BrushGrid internal styling */
+.brush-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  border: none;
+  padding: 0;
+  width: 100%;
+}
+
+.brush-item {
+  /* Calculate width for 5 items with spacing 
+     Available width: 100%
+     Gaps: 4 gaps of 8px = 32px (approx)
+     Item width: (100% - 32px) / 5
+     But using margins: margin-right: 8px, margin-bottom: 8px
+  */
+  width: calc((100% - 32px) / 5); 
+  margin-right: 8px;
+  margin-bottom: 8px;
+  
+  &:nth-child(5n) {
+    margin-right: 0; /* Remove margin for last item in row */
+  }
+
+  /* Base Style, layout defined by modifiers below */
+  background: $bg-card;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  /* Modifier: Minimal (Grid View) */
+  &.minimal {
+    /* Fixed Size Approach:
+       Instead of forcing N items per row, we fix the size (e.g., 30px)
+       and let Flexbox handle the wrapping. This prevents deformation 
+       on resize and allows "as many as fit" per row.
+    */
+    /* Reinforce Square Shape */
+    width: 32px;
+    height: 32px;
+    min-width: 32px; 
+    min-height: 32px;
+    flex: 0 0 32px;
+    box-sizing: border-box; /* Ensure border doesn't expand size */
+    
+    margin-right: 4px;
+    margin-bottom: 4px;
+    
+    /* Clean up any previous nth-child resets */
+    &:nth-child(5n), &:nth-child(8n) { margin-right: 4px; }
+  }
+
+  /* Modifier: Detail (List View) */
+  &.detail {
+    width: 100%; /* Full Width */
+    height: 40px; /* Fixed Height */
+    margin-right: 0;
+    margin-bottom: 8px; /* Vertical spacing */
+    padding: 0 12px;
+    justify-content: space-between; /* Spaced out content */
+    flex-direction: row;
+    
+    .brush-preview { display: none; }
+  }
+
+  &:hover {
+    border-color: $primary;
+    background: lighten($bg-card, 2%);
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &.active {
+    border-color: $primary;
+    background: rgba($primary, 0.1);
+  }
+
+  /* Add Button logic */
+  &.add-btn {
+    border: 1px dashed $border-color;
+    color: $text-muted;
+    background: transparent;
+
+    &:hover {
+      border-color: $primary;
+      color: $primary;
+      background: rgba($primary, 0.05);
+    }
+  }
+
+  /* Remove Button Styling - Smaller & Tighter */
+  .remove-btn {
+    position: absolute;
+    top: 2px; /* Closer to edge */
+    right: 2px;
+    width: 12px; /* Smaller container */
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.2s;
+    cursor: pointer;
+    z-index: 10;
+    
+    &:hover {
+      background: #ef4444; /* red-500 */
+      transform: scale(1.1);
+    }
+
+    /* Smaller SVG Icon */
+    svg {
+      display: block;
+      margin: auto;
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  /* Show remove button on hover */
+  &:hover .remove-btn {
+    opacity: 1;
+  }
+}
+
+/* Section 3: Properties (Card Style) */
+.section-properties {
+  /* Properties Logic handled in PropertyPanel */
+  padding-top: 8px; /* Extra Top Spacing */
+}
+
+/* Override PropertyPanel styling */
+.property-panel {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  padding: 0;
+  width: auto;
+}
+
+.sliders-frame {
+  background: #1f1f23; /* Unified card background */
+  border: 1px solid #27272a; /* Unified border color */
+  border-radius: 8px; /* Unified radius */
+  padding: 0; /* Remove default padding, handle in children/inline if needed */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.15); /* Deeper shadow for separation */
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Optimized spacing between rows */
+  overflow: hidden; /* Ensure rounded corners clip content */
+  position: relative; /* Create stacking context */
+  z-index: 1; /* Ensure distinct layers */
+}
+
+.slider-row {
+  display: flex;
+  flex-direction: column; /* Stacked: Label/Value top, Slider bottom */
+  align-items: stretch;
+  height: auto; 
+  margin-bottom: 0;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4px; /* Reduced from 8px for tighter look */
+}
+
+.slider-label {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #d1d5db; /* gray-300 */
+  width: auto;
+  padding: 0;
+}
+
+.slider-value {
+  font-family: monospace;
+  font-size: 12px;
+  color: $primary;
+  background: rgba($primary, 0.1); /* blue-900/20 */
+  padding: 2px 6px;
+  border-radius: 4px;
+  width: auto;
+  text-align: center;
+}
+
+/* Range Input Styling - Webkit only for UXP */
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: $border-color;
+  border-radius: 2px;
+  outline: none;
+  margin: 0;
+  
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: $bg-card; /* Inner dot color? No, design has dot inside? Design has solid thumb */
+    border: 2px solid $primary;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #18181B; /* zinc-900 */
+    box-shadow: 0 0 0 2px $bg-card; /* Fake spacing ring */
+    /* Center thumb on track (track height 4px, thumb 12px -> offset -4px) */
+    margin-top: -4px; 
+  }
+}
+
+/* iOS Style Switch */
+.ios-switch {
+  width: 32px;
+  height: 18px;
+  background: #3f3f46; /* zinc-700 (off state) */
+  border-radius: 12px;
+  position: relative;
+  transition: background 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  
+  .switch-handle {
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+  
+  &.on {
+    background: $primary; /* Active color */
+    
+    .switch-handle {
+       transform: translateX(14px);
+    }
+  }
+}
+
+
+/* Footer */
+.app-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba($bg-panel, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid $border-light;
+  padding: $spacing-md $spacing-lg;
+  z-index: 20;
+  border-bottom-left-radius: $radius-lg;
+  border-bottom-right-radius: $radius-lg;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn-sync {
+    background: #e4e4e7; // gray-200 (Light mode btn in mockup was dark?) 
+    /* Mockup footer btn: Dark bg, white text in light mode. Light bg, dark text in dark mode? */
+    /* Let's stick to Dark Mode aesthetic: White Text on Dark BG? No, mockup shows white button on dark footer? or vice versa. 
+       Wait, mockup footer button is "bg-gray-100 text-gray-900" (White button, black text) in Dark Mode.
+    */
+    background: #f3f4f6;
+    color: #111827;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.1s;
+
+    &:active { transform: scale(0.95); }
+    
+    .material-icons-round { font-size: 14px; }
+  }
+
+  .footer-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    .version {
+      font-size: 10px;
+      font-family: monospace;
+      color: $text-muted;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  .home-indicator {
+    width: 120px;
+    height: 4px;
+    background: $border-color;
+    border-radius: 99px;
+    margin: 16px auto 0 auto;
+    opacity: 0.5;
+  }
+}
+
+
+/* Animations */
+@keyframes modal-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+
+.modal-animate {
+  animation: modal-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Removed opacity: 0 to prevent UXP from hiding content if animation fails */
+}
+
+
+/* General Button Transitions */
+button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:active {
+    transform: scale(0.96);
+  }
+}

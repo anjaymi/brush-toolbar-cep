@@ -1,0 +1,60 @@
+@use "variables" as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: $font-family;
+    background-color: $bg-app; // Black context
+    color: $text-primary;
+    overflow: visible; /* 允许弹窗全屏显示 */
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative; /* 为 fixed 定位提供参考 */
+    min-height: 100vh;
+}
+
+/* Material Icons Helper */
+.material-icons-round {
+    font-size: 20px;
+    display: block;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* UXP SVG Fix (Nuclear Option for Filled Icons) */
+/* See: .agent/skills/uxp-svg-fix/SKILL.md */
+
+/* 1. The SVG container must have NO fill, otherwise it's a black square */
+svg.uxp-icon {
+  fill: none !important; 
+  /* display: block; - Removed to prevent layout issues */
+}
+
+/* 2. The paths inside must use the current text color */
+svg.uxp-icon path {
+  fill: currentColor !important;
+  /* stroke: none !important; - Removed to prevent invisible icons */
+}
+
+/* 3. If using strokes instead of fills (rare for these icons but possible) */
+svg.uxp-icon.stroked path {
+  fill: none !important;
+  stroke: currentColor !important;
+}
