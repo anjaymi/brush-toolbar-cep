@@ -1,6 +1,8 @@
-# 喵笔刷收藏 (Meow Brush Favorites)
+# ![Meow Icon](meow_icon.png) 喵笔刷收藏 (Meow Brush Favorites)
 
-Efficient Brush Management & Tool Switcher for Adobe Photoshop 2023+ (v24.2+).  
+![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)
+
+Efficient Brush Management & Tool Switcher for Adobe Photoshop 2023+ (v24.2+).
 高效的笔刷管理与快速调用插件，帮助画师在复杂绘画中随心所欲切换工具。
 
 ![Preview](public/icons/plugin-icon.png)
