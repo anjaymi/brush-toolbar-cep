@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喵笔刷收藏 (Meow Brush Favorites) 用户手册</title>
+    <style>
+        :root {
+            --primary: #ff4757; /* A different primary color for distinction */
+            --text: #333;
+            --bg: #fff;
+            --light-bg: #f8f9fa;
+            --border: #e1e1e1;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 10px;
+        }
+        h3 {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #555;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 8px;
+            background: #eee;
+            border-radius: 6px;
+            padding: 4px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .feature-card {
+            background: var(--light-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .feature-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .print-btn:hover {
+            background: #e04050;
+        }
+        @media print {
+            .print-btn {
+                display: none;
+            }
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">🖨️ 打印 / 另存为 PDF</button>
+
+    <h1>喵笔刷收藏 (Meow Brush Favorites) 用户手册</h1>
+    <p><strong>版本:</strong> 1.2.10 | <strong>适用软件:</strong> Adobe Photoshop 2023+ (v24.2+)</p>
+
+    <p>Meow Brush Favorites 是一款高效的笔刷管理与快速调用插件，帮助画师在复杂的绘画过程中随心所欲地切换工具与笔刷。</p>
+
+    <h2>🚀 安装指南</h2>
+    <h3>自动安装 (推荐)</h3>
+    <ol>
+        <li>双击安装包 <code>Meow Brush Favorites.ccx</code>。</li>
+        <li>系统将自动启动 Adobe Creative Cloud 桌面端 (或 UXP Developer Tools)。</li>
+        <li>按照提示完成安装。</li>
+        <li>在 Photoshop 中，点击菜单 <code>Plugins (插件)</code> > <code>Meow Brush Favorites</code> 启动面板。</li>
+    </ol>
+
+    <h3>手动安装 (不使用 Creative Cloud)</h3>
+    <p>如果您无法使用 CC 桌面端安装，可以尝试以下手动方法：</p>
+    <ol>
+        <li>将安装包 <code>Meow Brush Favorites.ccx</code> 的扩展名重命名为 <code>.zip</code>。</li>
+        <li>解压该压缩包，得到一个文件夹。</li>
+        <li>将该文件夹复制到 Photoshop 的插件目录：
+            <ul>
+                <li><strong>Windows:</strong> <code>C:\Program Files\Common Files\Adobe\Plug-ins\CC\MeowBrushFavorites</code></li>
+                <li><strong>macOS:</strong> <code>/Library/Application Support/Adobe/Plug-ins/CC/MeowBrushFavorites</code></li>
+            </ul>
+        </li>
+        <li>重启 Photoshop。</li>
+    </ol>
+
+    <h2>🎮 核心功能</h2>
+    <h3>管理与操作指南</h3>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-header">
+                <span>🖱️ 移动与排序</span>
+            </div>
+            <p><strong>两种方式调整位置：</strong></p>
+            <ul>
+                <li><strong>拖拽 (Drag & Drop):</strong> 只有按住鼠标左键拖动图标即可放到新位置。</li>
+                <li><strong>右键交换 (Swap):</strong> 右键点击一个图标（它会开始闪烁），然后左键点击另一个目标图标，两者位置即互换。</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-header">
+                <span>🗑️ 删除笔刷</span>
+            </div>
+            <p><strong>删除步骤：</strong></p>
+            <ul>
+                <li>将鼠标<strong>悬停</strong>在想要删除的笔刷图标上。</li>
+                <li>图标右上角会出现一个小的 <strong>[x]</strong> 按钮。</li>
+                <li>点击该按钮并确认，即可将其从面板移除（不会删除 PS 里的原始笔刷）。</li>
+            </ul>
+        </div>
+    </div>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-header">
+                <span>🖌️ 笔刷网格 (Brush Grid)</span>
+            </div>
+            <p>以网格形式直观展示您的常用笔刷。支持拖拽排序，右键点击可进行管理。快速点击即可切换笔刷，流畅不卡顿。</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-header">
+                <span>🛠️ 工具栏 (Tool Grid)</span>
+            </div>
+            <p>集成了常用的绘画工具（橡皮擦、涂抹、混合画笔等）。无需记忆复杂的快捷键，一键切换。</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-header">
+                <span>⚙️ 属性面板 (Properties)</span>
+            </div>
+            <p>实时调整当前笔刷的属性：大小 (Size)、流量 (Flow)、不透明度 (Opacity) 等。支持数值输入与滑块拖动。</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-header">
+                <img src="public/Setting.png" class="icon" alt="Settings">
+                <span>设置 (Settings)</span>
+            </div>
+            <p>自定义面板的外观与行为。您可以调整网格大小、图标显示方式以及快捷键绑定。</p>
+        </div>
+    </div>
+
+    <h2>💡 使用技巧</h2>
+    <ul>
+        <li><strong>快速导入</strong>: 直接将 `.abr` 笔刷文件拖入面板，或者在设置中选择导入，批量添加您喜爱的笔刷。</li>
+        <li><strong>分组管理</strong>: 使用 Tab 分页功能将不同类型的笔刷（如素描、上色、特效）分类管理，保持界面整洁。</li>
+        <li><strong>极简模式</strong>: 双击面板标题栏可折叠面板，仅保留最核心的工具图标，最大化画布空间。</li>
+    </ul>
+
+    <hr style="margin-top: 40px; border: 0; border-top: 1px solid #eee;">
+    <p style="text-align: center; color: #888; font-size: 0.9em;">© 2026 Bolt UXP. All rights reserved.</p>
+</body>
+</html>
